@@ -1,0 +1,30 @@
+body {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+pre {
+  text-wrap: auto;
+  font-size: small;
+  color: greenyellow;
+  margin: 0;
+}
+pre.error {
+  color: tomato;
+}
+nav {
+  height: 70px;
+  overflow: hidden;
+  background-color: var(--bs-gray-200);
+}
+
+main {
+  margin-top: 70px;
+  height: calc(100vh - 70px);
+}
+
+#log-container {
+  scroll-behavior: smooth;
+}

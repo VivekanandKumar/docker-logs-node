@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="p-3 position-fixed top-0 start-0 end-0 shadow-xl border-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h3 class="fw-bold">Logs</h3>
+          </div>
+          <div class="col-auto">
+            <button id="clear" type="button" class="btn btn-info">Clear</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div
+        class="bg-dark container h-100 overflow-y-auto p-2"
+        id="log-container"
+      ></div>
+    </main>
+
+    <script>
+      const Socket = io();
+      const container = document.getElementById("log-container");
+      const clearBtn = document.getElementById("clear");
+      clearBtn.addEventListener("click", () => {
+        container.innerHTML = "";
+      });
+      Socket.on("stream-logs", ({ line, type }) => {
+        const pre = document.createElement("pre");
+        pre.innerHTML = line;
+        pre.classList.add(type);
+        container.appendChild(pre);
+        container.scrollTop = container.scrollHeight;
+      });
+    </script>
+  </body>
+</html>
