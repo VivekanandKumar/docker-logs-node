@@ -1,4 +1,4 @@
-name: Node-Js-CICD
+name: CI-CD Pipelines
 
 on:
   push:
@@ -67,3 +67,4 @@ jobs:
             docker-compose pull
             docker-compose down
             docker-compose up -d
+            docker image prune -f
