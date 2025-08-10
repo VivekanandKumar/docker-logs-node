@@ -41,6 +41,19 @@ jobs:
           push: true
           tags: ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
 
+      # 6. Login to AWS, pull Image and Run Container
+      - name: Deploy to aws
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{secrets.AWS_HOST}}
+          username: ${{secrets.AWS_USER}}
+          key: ${{secrets.AWS_KEY}}
+          scripts: |
+            docker pull ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
+            docker stop docker-logs-node || true
+            docker rm docker-logs-node || true
+            docker run -d --name docker-logs-node -p 3000:3000 ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
+
       # 6.  Completed
       - name: ✅ Done
         run: echo "Actions Completed!"
