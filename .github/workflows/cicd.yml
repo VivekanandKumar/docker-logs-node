@@ -50,11 +50,13 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
           script: |
-            cd /projects/docker-logs
-            docker-compose down
-            docker rmi ${{ secrets.HUB_USERNAME }}/docker-logs-node || true
-            docker pull ${{ secrets.HUB_USERNAME }}/docker-logs-node:latest
-            docker-compose up -d
+            docker pull ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
+            docker stop docker-logs || true && docker rm docker-logs || true
+            docker run -d \
+            --name docker-logs \
+            -p 3000:3000 \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
 
       # 6.  Completed
       - name: ✅ Done
