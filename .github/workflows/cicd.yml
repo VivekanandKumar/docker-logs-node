@@ -21,11 +21,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
       # 3. Install Dependencies
       - name: Install Dependencies
         run: npm ci
-        cache: "npm"
 
       # 4. Login to docker Hub
       - name: Login to Docker Hub
