@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap");
+:root {
+  --theme-color: #0091e2;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
@@ -10,6 +15,8 @@ pre {
   font-size: small;
   color: greenyellow;
   margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 pre.error {
   color: tomato;
@@ -19,12 +26,30 @@ nav {
   overflow: hidden;
   background-color: var(--bs-gray-200);
 }
-
 main {
   margin-top: 70px;
+  overflow: hidden;
+}
+#log-container,
+#listwrapper {
   height: calc(100vh - 70px);
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}
+[name="containergroup"]:checked {
+  background: #ffffff;
+  border: 0 !important;
 }
 
-#log-container {
-  scroll-behavior: smooth;
+.container.active {
+  background-color: var(--theme-color);
+  color: #ffffff;
+}
+
+.logHead {
+  font-family: "Bitcount Prop Single", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0;
 }

@@ -1,0 +1,28 @@
+name: Node-Js-CICD
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      # 1. Checkout the branch
+      - uses: actions/checkout@v4
+
+      # 2. Setup Node.js with Cache
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      # 3. Install Dependencies
+      - name: Install Dependencies
+        run: npm ci

@@ -15,40 +15,47 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav class="p-3 position-fixed top-0 start-0 end-0 shadow-xl border-bottom">
-      <div class="container">
-        <div class="row">
+    <nav
+      class="px-3 py-2 position-fixed top-0 start-0 end-0 shadow-xl border-bottom"
+    >
+      <div class="container-fluid">
+        <div class="row align-items-center">
           <div class="col">
-            <h3 class="fw-bold">Logs</h3>
+            <h3 class="fw-bold d-flex align-items-center gap-3 m-0">
+              <img width="50px" src="docker.svg" alt="" />
+              <span style="color: var(--theme-color)" class="logHead"
+                >Logs</span
+              >
+            </h3>
           </div>
           <div class="col-auto">
-            <button id="clear" type="button" class="btn btn-info">Clear</button>
+            <button
+              id="clear"
+              type="button"
+              class="btn text-light"
+              style="background-color: var(--theme-color)"
+            >
+              Clear
+            </button>
           </div>
         </div>
       </div>
     </nav>
 
     <main>
-      <div
-        class="bg-dark container h-100 overflow-y-auto p-2"
-        id="log-container"
-      ></div>
+      <div class="row m-0">
+        <div class="col-2 p-0">
+          <div id="listwrapper"></div>
+        </div>
+        <div class="col-10 p-0">
+          <div
+            class="bg-dark container-fluid overflow-y-auto p-2"
+            id="log-container"
+          ></div>
+        </div>
+      </div>
+      <aside></aside>
     </main>
-
-    <script>
-      const Socket = io();
-      const container = document.getElementById("log-container");
-      const clearBtn = document.getElementById("clear");
-      clearBtn.addEventListener("click", () => {
-        container.innerHTML = "";
-      });
-      Socket.on("stream-logs", ({ line, type }) => {
-        const pre = document.createElement("pre");
-        pre.innerHTML = line;
-        pre.classList.add(type);
-        container.appendChild(pre);
-        container.scrollTop = container.scrollHeight;
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
