@@ -49,7 +49,7 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
           script: |
-            cd /home/ubuntu/docker-logs-node
+            cd /home/ubuntu/projects/docker-logs-node
             docker pull ${{ secrets.HUB_USERNAME }}/docker-logs-node:latest
             docker-compose down
             docker-compose up -d
