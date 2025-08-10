@@ -26,21 +26,21 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # 4. Build Docker Image
-      - name: Build Docker Image
-        run: docker build -t docker-log-img .
-
-      # 5. Login to docker Hub
+      # 4. Login to docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{secrets.HUB_USERNAME}}
           password: ${{secrets.HUB_PASSWORD}}
 
-      # 6. Push Image on Docker Hub
-      - name: Push Image on Docker Hub
-        run: docker push docker-log-img:latest
+      # 5. Build and push Docker image
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
 
-      # Completed
+      # 6.  Completed
       - name: ✅ Done
         run: echo "Actions Completed!"
