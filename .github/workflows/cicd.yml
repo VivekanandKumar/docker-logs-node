@@ -52,6 +52,7 @@ jobs:
           script: |
             docker pull ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
             docker stop docker-logs || true && docker rm docker-logs || true
+            docker image prune -f
             docker run -d \
             --name docker-logs \
             -p 3000:3000 \
