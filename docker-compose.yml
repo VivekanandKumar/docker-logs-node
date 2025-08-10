@@ -1,7 +1,8 @@
 services:
   logs:
     container_name: docker-logs
-    build: .
-    image: docker-logs:latest
+    image: vivekanandkumar98/docker-logs-node:latest
     ports:
       - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

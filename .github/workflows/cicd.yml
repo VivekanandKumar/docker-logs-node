@@ -50,9 +50,8 @@ jobs:
           key: ${{secrets.AWS_KEY}}
           script: |
             docker pull ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
-            docker stop docker-logs-node || true
-            docker rm docker-logs-node || true
-            docker run -d --name docker-logs-node -p 3000:3000 ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
+            docker-compose down
+            docker compose up -d
 
       # 6.  Completed
       - name: ✅ Done
