@@ -54,7 +54,7 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
           source: "docker-compose.yml"
-          target: "/home/ubuntu/projects/docker-logs"
+          target: "/home/${{secrets.AWS_USER}}/projects/docker-logs"
 
       - name: Deploy to AWS with Docker Compose
         uses: appleboy/ssh-action@v1.2.0
@@ -63,7 +63,7 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
           script: |
-            cd /home/ubuntu/projects/docker-logs
-            docker compose pull
-            docker compose down
-            docker compose up -d --force-recreate
+            cd /home/${{secrets.AWS_USER}}/projects/docker-logs
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
