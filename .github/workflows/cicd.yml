@@ -48,7 +48,7 @@ jobs:
           host: ${{secrets.AWS_HOST}}
           username: ${{secrets.AWS_USER}}
           key: ${{secrets.AWS_KEY}}
-          scripts: |
+          script: |
             docker pull ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
             docker stop docker-logs-node || true
             docker rm docker-logs-node || true
