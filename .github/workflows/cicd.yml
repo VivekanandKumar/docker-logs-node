@@ -24,7 +24,8 @@ jobs:
 
       # 3. Install Dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
+        cache: "npm"
 
       # 4. Login to docker Hub
       - name: Login to Docker Hub
@@ -49,9 +50,10 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
           script: |
-            cd /home/ubuntu/projects/docker-logs-node
-            docker pull ${{ secrets.HUB_USERNAME }}/docker-logs-node:latest
+            cd /projects/docker-logs
             docker-compose down
+            docker rmi ${{ secrets.HUB_USERNAME }}/docker-logs-node || true
+            docker pull ${{ secrets.HUB_USERNAME }}/docker-logs-node:latest
             docker-compose up -d
 
       # 6.  Completed
