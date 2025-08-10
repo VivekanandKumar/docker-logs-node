@@ -42,16 +42,17 @@ jobs:
           tags: ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
 
       # 6. Login to AWS, pull Image and Run Container
-      - name: Deploy to aws
+      - name: Deploy to AWS
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{secrets.AWS_HOST}}
-          username: ${{secrets.AWS_USER}}
-          key: ${{secrets.AWS_KEY}}
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.AWS_KEY }}
           script: |
-            docker pull ${{secrets.HUB_USERNAME}}/docker-logs-node:latest
+            cd /home/ubuntu/docker-logs-node
+            docker pull ${{ secrets.HUB_USERNAME }}/docker-logs-node:latest
             docker-compose down
-            docker compose up -d
+            docker-compose up -d
 
       # 6.  Completed
       - name: ✅ Done
